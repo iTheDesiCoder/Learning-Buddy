@@ -1,0 +1,26 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_LEFT_RIGHT()
+
+title Java / C# – Compiler → Bytecode/IL → VM + JIT → Native → Output
+
+Boundary(jit, "COMPILER + VM") {
+  Component(src, "Source Code", ".java / .cs", "Input to compiler")
+  Component(cmp, "Compiler", "javac / csc", "Parses + compiles to bytecode/IL")
+  Component(bc, "Bytecode / IL", ".class / .dll / .exe", "Portable intermediate form")
+  Component(vm, "VM + JIT", "JVM / CLR", "JIT compiles hot paths to native code")
+  Component(native, "Native Machine Code", "CPU ISA", "Executed by OS/processor")
+}
+
+System_Ext(os, "Operating System", "Process, memory, I/O")
+System_Ext(out, "Running Code Output", "stdout, files, network, etc.")
+
+Rel(src, cmp, "compile")
+Rel(cmp, bc, "produces")
+Rel(bc, vm, "loaded / verified")
+Rel(vm, native, "JIT compile")
+Rel(native, os, "execute")
+Rel(os, out, "results / side-effects")
+
+SHOW_LEGEND()
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_LEFT_RIGHT()
+
+title Python Interpreter – Lexing → Parsing → Compiling → Bytecode → PVM → Output
+
+Boundary(py, "PYTHON INTERPRETER") {
+  Component(src, "Source Code", "abc.py", "Python file given to the interpreter")
+  Component(lex, "Lexing", "Tokenizer", "Characters → Tokens")
+  Component(par, "Parsing", "Parser / AST", "Tokens → Abstract Syntax Tree")
+  Component(cmp, "Compiling", "Bytecode compiler", "AST → Python bytecode")
+  Component(pyc, "Bytecode Cache", "abc.pyc", "Cached .pyc in __pycache__")
+  Component(pvm, "Interpreting Virtual Machine", "PVM", "Executes Python bytecode")
+}
+
+System_Ext(os, "OS / C runtime", "Native execution environment")
+System_Ext(out, "Running Code Output", "stdout, files, network, etc.")
+
+Rel(src, lex, "python abc.py")
+Rel(lex, par, "tokens")
+Rel(par, cmp, "AST")
+Rel(cmp, pyc, "emit .pyc")
+Rel(pyc, pvm, "bytecode")
+Rel(pvm, os, "machine instructions")
+Rel(os, out, "results / side-effects")
+
+SHOW_LEGEND()
+@enduml
