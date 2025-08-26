@@ -1,0 +1,26 @@
+@startuml
+title Immutable Example (int)
+
+rectangle "Step 1: a = 10" {
+  rectangle a1 as "a"
+  rectangle obj10a as "10 @1001"
+  a1 --> obj10a
+}
+
+rectangle "Step 2: b = a" {
+  rectangle a2 as "a"
+  rectangle b2 as "b"
+  rectangle obj10b as "10 @1001"
+  a2 --> obj10b
+  b2 --> obj10b
+}
+
+rectangle "Step 3: a = a + 1" {
+  rectangle a3 as "a"
+  rectangle b3 as "b"
+  rectangle obj10c as "10 @1001"
+  rectangle obj11 as "11 @1002"
+  a3 --> obj11
+  b3 --> obj10c
+}
+@enduml

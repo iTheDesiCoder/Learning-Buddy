@@ -1,0 +1,25 @@
+@startuml
+title Mutable Example (list)
+
+rectangle "Step 1: x = [1,2]" {
+  rectangle x1 as "x"
+  rectangle list1 as "[1,2] @2001"
+  x1 --> list1
+}
+
+rectangle "Step 2: y = x" {
+  rectangle x2 as "x"
+  rectangle y2 as "y"
+  rectangle list2 as "[1,2] @2001"
+  x2 --> list2
+  y2 --> list2
+}
+
+rectangle "Step 3: x.append(3)" {
+  rectangle x3 as "x"
+  rectangle y3 as "y"
+  rectangle list3 as "[1,2,3] @2001"
+  x3 --> list3
+  y3 --> list3
+}
+@enduml

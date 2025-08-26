@@ -1,0 +1,21 @@
+@startuml
+title Python Main vs Import Behavior
+
+actor "Developer" as dev
+
+rectangle "Test.py" {
+  rectangle "main()" as main
+  rectangle "Helper Functions\n(add, greet, etc.)" as funcs
+}
+
+rectangle "Python Interpreter" as interp
+
+dev --> "Test.py" : Run or Import
+"Test.py" --> interp
+
+rectangle "Direct Run\npython Test.py" as run
+rectangle "Imported as Module\nimport Test" as imp
+
+run --> main : Executes if __name__ == '__main__'
+imp --> funcs : Functions available for reuse
+@enduml

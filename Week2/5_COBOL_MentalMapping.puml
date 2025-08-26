@@ -1,0 +1,32 @@
+@startuml
+title COBOL vs Python Mental Mapping 
+
+rectangle "COBOL" {
+  rectangle "Data Types\n- PIC 9(4), PIC X(20)\n- COMP-3 decimals\n- Fixed size" as cobol_data
+  rectangle "Tables\n- OCCURS clause\n- Fixed length arrays" as cobol_table
+  rectangle "Loops\n- PERFORM UNTIL / VARYING\n- Structured iteration" as cobol_loops
+  rectangle "Logical Operators\n- AND / OR / NOT\n- Keywords" as cobol_logic
+  rectangle "Functions\n- Paragraphs\n- PERFORM calls\n- No return values" as cobol_func
+  rectangle "Main Program\n- PROGRAM-ID\n- Always entry point" as cobol_main
+  rectangle "Strings\n- PIC X(20)\n- Fixed length\n- Space padded" as cobol_str
+}
+
+rectangle "Python" {
+  rectangle "Data Types\n- int, float, str\n- list, dict, set\n- Dynamic size" as py_data
+  rectangle "Mutability\n- Mutable: list, dict, set\n- Immutable: int, str, tuple" as py_mut
+  rectangle "Loops\n- while, for range()\n- Iterates directly over objects" as py_loops
+  rectangle "Logical Operators\n- and, or, not\n- Plain English words" as py_logic
+  rectangle "Functions\n- def keyword\n- return values\n- Flexible parameters" as py_func
+  rectangle "Main Program\n- if __name__ == '__main__'\n- Optional entry point" as py_main
+  rectangle "Strings\n- Dynamic length\n- Rich methods: find, replace, split\n- Unicode support" as py_str
+}
+
+' Mapping lines
+cobol_data --> py_data
+cobol_table --> py_mut
+cobol_loops --> py_loops
+cobol_logic --> py_logic
+cobol_func --> py_func
+cobol_main --> py_main
+cobol_str --> py_str
+@enduml
