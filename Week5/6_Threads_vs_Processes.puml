@@ -1,0 +1,68 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_TOP_DOWN()
+
+title **Multithreading vs Multiprocessing in Python**\n<size:12>Understanding Concurrency and Parallelism</size>
+
+Person(dev, "Python Developer", "Needs to handle multiple tasks")
+
+System_Boundary(mt, "🧵 **MULTITHREADING**") {
+    Container(gil, "🔒 Global Interpreter Lock (GIL)", "Python Limitation", "Only one thread executes Python code at a time")
+    Container(proc_mt, "Python Process", "Single Process", "One interpreter instance")
+    Container(sharedMem, "💾 Shared Memory", "RAM", "All threads share variables & objects")
+    
+    Container(thread1, "Thread-1", "I/O Bound Task", "File reading, Network calls")
+    Container(thread2, "Thread-2", "I/O Bound Task", "Database queries, API calls")
+    
+    Container(adv_mt, "✅ **ADVANTAGES**", "Benefits", "• Fast context switching\n• Low memory overhead\n• Easy data sharing")
+    Container(dis_mt, "❌ **LIMITATIONS**", "Drawbacks", "• GIL prevents true parallelism\n• Not good for CPU-intensive tasks\n• Race conditions possible")
+    
+    Rel(dev, proc_mt, "Starts program")
+    Rel(proc_mt, gil, "Controlled by")
+    Rel(proc_mt, thread1, "Creates", "threading.Thread()")
+    Rel(proc_mt, thread2, "Creates", "threading.Thread()")
+    Rel(thread1, sharedMem, "Shares data", "Direct access")
+    Rel(thread2, sharedMem, "Shares data", "Direct access")
+    Rel(gil, thread1, "Allows execution", "When I/O occurs")
+    Rel(gil, thread2, "Allows execution", "When I/O occurs")
+}
+
+System_Boundary(mp, "⚡ **MULTIPROCESSING**") {
+    Container(proc1, "Process-1", "Independent Python Process", "Own interpreter & GIL")
+    Container(proc2, "Process-2", "Independent Python Process", "Own interpreter & GIL")
+    
+    Container(mem1, "💾 Memory-1", "Private RAM", "Isolated variables & objects")
+    Container(mem2, "💾 Memory-2", "Private RAM", "Isolated variables & objects")
+    
+    Container(cpu1, "🖥️ CPU Core-1", "Physical Core", "True parallel execution")
+    Container(cpu2, "🖥️ CPU Core-2", "Physical Core", "True parallel execution")
+    
+    Container(ipc, "📡 Inter-Process Communication", "Data Exchange", "Queue, Pipe, Manager")
+    
+    Container(adv_mp, "✅ **ADVANTAGES**", "Benefits", "• True parallelism\n• No GIL limitations\n• Great for CPU-intensive tasks\n• Fault isolation")
+    Container(dis_mp, "❌ **LIMITATIONS**", "Drawbacks", "• Higher memory usage\n• Slower process creation\n• Complex data sharing\n• Serialization overhead")
+    
+    Rel(dev, proc1, "Starts process", "multiprocessing.Process()")
+    Rel(dev, proc2, "Starts process", "multiprocessing.Process()")
+    Rel(proc1, mem1, "Uses exclusively")
+    Rel(proc2, mem2, "Uses exclusively")
+    Rel(proc1, cpu1, "Executes on", "Parallel")
+    Rel(proc2, cpu2, "Executes on", "Parallel")
+    Rel(proc1, ipc, "Communicates via", "pickle/serialize")
+    Rel(proc2, ipc, "Communicates via", "pickle/serialize")
+}
+
+System_Boundary(guide, "📚 **WHEN TO USE WHAT?**") {
+    Container(io_tasks, "🔄 I/O Bound Tasks", "Use Threading", "• File operations\n• Network requests\n• Database queries\n• Web scraping")
+    Container(cpu_tasks, "🧮 CPU Bound Tasks", "Use Multiprocessing", "• Mathematical calculations\n• Image processing\n• Data analysis\n• Machine learning")
+    
+    Container(code_mt, "💻 Threading Code", "Example", 'import threading\n\ndef io_task():\n    # Network call\n    time.sleep(1)\n\nthreads = []\nfor i in range(5):\n    t = threading.Thread(target=io_task)\n    threads.append(t)\n    t.start()')
+    
+    Container(code_mp, "💻 Multiprocessing Code", "Example", 'import multiprocessing\n\ndef cpu_task(n):\n    # Heavy calculation\n    return sum(i*i for i in range(n))\n\nif __name__ == "__main__":\n    with multiprocessing.Pool() as pool:\n        results = pool.map(cpu_task, [1000000] * 4)')
+}
+
+Rel(mt, guide, "Choose based on task type")
+Rel(mp, guide, "Choose based on task type")
+
+@enduml
