@@ -1,0 +1,23 @@
+@startuml
+title Sequential vs Concurrent Execution
+
+partition Sequential {
+  start
+  :Task 1;
+  :Task 2;
+  :Task 3;
+  stop
+}
+
+partition Concurrent {
+  start
+  fork
+    :Task 1 ;
+  fork again
+    :Task 2 ;
+  fork again
+    :Task 3 ;
+  end fork
+  stop
+}
+@enduml

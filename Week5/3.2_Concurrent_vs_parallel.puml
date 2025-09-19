@@ -1,0 +1,28 @@
+@startuml
+title Concurrent vs Parallel Execution
+
+partition Concurrent {
+  start
+  fork
+    :Task 1 (runs, may pause/wait);
+  fork again
+    :Task 2 (runs, may pause/wait);
+  fork again
+    :Task 3 (runs, may pause/wait);
+  end fork
+  :Shared Resource / Coordination;
+  stop
+}
+
+partition Parallel {
+  start
+  fork
+    :Task 1 (CPU Core 1);
+  fork again
+    :Task 2 (CPU Core 2);
+  fork again
+    :Task 3 (CPU Core 3);
+  end fork
+  stop
+}
+@enduml
