@@ -1,0 +1,11 @@
+AccountNumber,CustomerName,State,AccountBalance,OrderNumber,SecurityType,SecurityName,Qty,Price,OrderDate
+1001.0,John Smith,NY,72236,2001.0,Mutual Fund,Vanguard 500 Index,120.0,215.5,2023-01-01
+1002.0,Emma Johnson,CA,,2002.0,Equity,Apple Inc.,,178.34,2023-01-08
+1003.0,Michael Williams,,87651,2003.0,Option,,50.0,15.25,2023-01-15
+1004.0,,NJ,34067,2004.0,Mutual Fund,Fidelity Contrafund,200.0,,2023-01-22
+1005.0,James Jones,FL,,,Equity,Tesla Inc.,80.0,312.45,
+1005.0,James Jones,FL,56431,2006.0,,Tesla Inc.,80.0,312.45,2023-02-05
+,Olivia Miller,TX,Not Available,2007.0,Option,AAPL Jan 2026 180C,10.0,Missing,BadDate
+1007.0,Ava Garcia,,45321,2008.0,Equity,Microsoft Corp.,25.0,400.75,2023-02-19
+1008.0,Alexander Rodriguez,PA,98000,2009.0,Mutual Fund,,,150.0,2023-02-26
+1009.0,Mia Wilson,GA,,2010.0,Equity,Amazon.com Inc.,100.0,,2023-03-05
